@@ -1,216 +1,342 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Search, TrendingUp, Users, BookOpen, Star, Github, ExternalLink, Upload } from 'lucide-react';
+import { Search, TrendingUp, Users, BookOpen, Star, Github, ExternalLink, Upload, Heart, Eye, MessageCircle, Calendar } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import ProjectCard from '@/components/ProjectCard';
-import RecentProjects from '@/components/RecentProjects';
-import BootcampRanking from '@/components/BootcampRanking';
 
 const Index = () => {
+  // Mock data for recent projects
+  const recentProjects = [
+    {
+      id: 1,
+      title: "AI 챗봇 기반 고객 서비스 플랫폼",
+      description: "자연어 처리를 활용한 스마트 고객 상담 시스템. OpenAI API를 활용하여 실시간 응답이 가능합니다.",
+      author: "김개발",
+      bootcamp: "코드스테이츠",
+      techStack: ["React", "Node.js", "OpenAI", "+1"],
+      likes: 234,
+      views: 1620,
+      comments: 48,
+      period: "2개월"
+    },
+    {
+      id: 2,
+      title: "실시간 협업 코딩 에디터",
+      description: "개발자들이 동시에 협업할 수 있는 온라인 코딩 에디터입니다.",
+      author: "이코딩",
+      bootcamp: "우아한테크코스",
+      techStack: ["Vue.js", "Socket.io", "Express", "+1"],
+      likes: 189,
+      views: 892,
+      comments: 33,
+      period: "1개월"
+    },
+    {
+      id: 3,
+      title: "모바일 헬스케어 트래킹 앱",
+      description: "운동, 식단, 수면 패턴을 종합적으로 관리하는 모바일 헬스케어 앱입니다.",
+      author: "박헬스",
+      bootcamp: "엘리스",
+      techStack: ["Flutter", "Firebase", "Dart", "+1"],
+      likes: 156,
+      views: 734,
+      comments: 29,
+      period: "3개월"
+    },
+    {
+      id: 4,
+      title: "블록체인 기반 NFT 마켓플레이스",
+      description: "이더리움 블록체인을 기반으로 구현한 NFT 거래 플랫폼입니다.",
+      author: "최블록",
+      bootcamp: "스파르타코딩클럽",
+      techStack: ["React", "Solidity", "Web3.js", "+1"],
+      likes: 298,
+      views: 1834,
+      comments: 56,
+      period: "1주간"
+    }
+  ];
+
+  // Mock data for bootcamp ranking
+  const bootcampRanking = [
+    { rank: 1, name: "코드스테이츠", projects: 1240, badge: "HOT" },
+    { rank: 2, name: "우아한테크코스", projects: 987 },
+    { rank: 3, name: "네이버 부스트캠프", projects: 623, badge: "HOT" },
+    { rank: 4, name: "스파르타코딩클럽", projects: 756 },
+    { rank: 5, name: "플레이데이터", projects: 643 }
+  ];
+
+  // Mock data for popular projects
+  const popularProjects = [
+    {
+      title: "AI 기반 블로그 아티클 모니터링 시스템",
+      author: "김개발",
+      bootcamp: "코드스테이츠",
+      period: "3개월 전",
+      techStack: ["React", "Node.js", "TensorFlow"],
+      isNew: true
+    },
+    {
+      title: "실시간 협업 화이트보드 플랫폼",
+      author: "이협업",
+      bootcamp: "우아한테크코스", 
+      period: "2개월 전",
+      techStack: ["Vue.js", "Socket.io", "MongoDB"],
+      isNew: true
+    },
+    {
+      title: "블록체인 기반 투표 시스템",
+      author: "박블록",
+      bootcamp: "데이스쿨",
+      period: "1개월 전",
+      techStack: ["Solidity", "Web3.js", "React"],
+      isNew: false
+    },
+    {
+      title: "커뮤니티 기반 중고거래 앱",
+      author: "최거래",
+      bootcamp: "스파르타코딩클럽",
+      period: "1개월 전",
+      techStack: ["Flutter", "Firebase", "Dart"],
+      isNew: false
+    },
+    {
+      title: "데이터 시각화 대시보드",
+      author: "김데이터",
+      bootcamp: "플레이데이터",
+      period: "2개월 전",
+      techStack: ["D3.js", "Python", "FastAPI"],
+      isNew: false
+    }
+  ];
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+    <div className="min-h-screen bg-gray-50">
       <Navigation />
       
       {/* Hero Section */}
-      <section className="relative py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-            개발자들의 프로젝트
-            <span className="block text-blue-600">아카이브</span>
+      <section className="bg-gradient-to-r from-blue-600 to-blue-800 py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto text-center">
+          <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">
+            부트캠프 수료생들의
+            <br />
+            <span className="text-yellow-300">프로젝트 아카이브</span>
           </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-            부트캠프, 동아리, 개인 프로젝트까지. 
-            <br />개발자들의 실제 프로젝트를 탐색하고 학습하세요.
+          <p className="text-xl text-blue-100 mb-8 leading-relaxed">
+            동료들의 프로젝트를 탐색하고, 영감을 얻고, 함께 성장하세요.
+            <br />
+            당신의 포트폴리오도 여기서 빛을 발할 수 있습니다.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link to="/explore">
-              <Button size="lg" className="px-8 py-3 text-lg font-medium bg-blue-600 hover:bg-blue-700">
-                <Search className="w-5 h-5 mr-2" />
-                프로젝트 탐색하기
+              <Button size="lg" variant="secondary" className="px-8 py-3 text-lg font-medium">
+                프로젝트 둘러보기
               </Button>
             </Link>
             <Link to="/project/register">
-              <Button size="lg" variant="outline" className="px-8 py-3 text-lg font-medium border-blue-600 text-blue-600 hover:bg-blue-50">
-                <Upload className="w-5 h-5 mr-2" />
+              <Button size="lg" variant="outline" className="px-8 py-3 text-lg font-medium border-white text-white hover:bg-white/10">
                 내 프로젝트 등록하기
               </Button>
             </Link>
           </div>
+        </div>
+      </section>
 
-          {/* 통계 정보 */}
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Recent Projects Section */}
+        <section className="mb-12">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-2xl font-bold text-gray-900 flex items-center">
+              <TrendingUp className="w-6 h-6 mr-2 text-blue-600" />
+              이번 주 인기 프로젝트
+            </h2>
+            <Link to="/explore">
+              <Button variant="ghost" className="text-blue-600 hover:text-blue-700">
+                전체 보기 →
+              </Button>
+            </Link>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {recentProjects.map((project) => (
+              <Card key={project.id} className="hover:shadow-lg transition-shadow cursor-pointer">
+                <div className="aspect-video bg-gradient-to-br from-gray-100 to-gray-200 rounded-t-lg relative">
+                  <div className="absolute top-2 right-2 bg-blue-600 text-white px-2 py-1 rounded text-xs">
+                    {project.bootcamp}
+                  </div>
+                </div>
+                <CardContent className="p-4">
+                  <h3 className="font-semibold text-sm mb-2 line-clamp-2">{project.title}</h3>
+                  <p className="text-xs text-gray-600 mb-3 line-clamp-2">{project.description}</p>
+                  
+                  <div className="flex flex-wrap gap-1 mb-3">
+                    {project.techStack.map((tech, index) => (
+                      <Badge key={index} variant="secondary" className="text-xs">
+                        {tech}
+                      </Badge>
+                    ))}
+                  </div>
+                  
+                  <div className="flex justify-between items-center text-xs text-gray-500">
+                    <div className="flex items-center space-x-3">
+                      <span className="flex items-center">
+                        <Heart className="w-3 h-3 mr-1" />
+                        {project.likes}
+                      </span>
+                      <span className="flex items-center">
+                        <Eye className="w-3 h-3 mr-1" />
+                        {project.views}
+                      </span>
+                      <span className="flex items-center">
+                        <MessageCircle className="w-3 h-3 mr-1" />
+                        {project.comments}
+                      </span>
+                    </div>
+                    <span className="flex items-center">
+                      <Calendar className="w-3 h-3 mr-1" />
+                      {project.period}
+                    </span>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        {/* Two Column Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Left Column - Bootcamp Ranking */}
+          <div className="lg:col-span-1">
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-lg flex items-center">
+                  <TrendingUp className="w-5 h-5 mr-2 text-blue-600" />
+                  주목받는 부트캠프
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-0">
+                {bootcampRanking.map((bootcamp) => (
+                  <div key={bootcamp.rank} className="flex items-center p-4 border-b last:border-b-0 hover:bg-gray-50">
+                    <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center mr-3 font-semibold text-sm">
+                      {bootcamp.rank}
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center">
+                        <span className="font-medium">{bootcamp.name}</span>
+                        {bootcamp.badge && (
+                          <Badge variant="destructive" className="ml-2 text-xs">
+                            {bootcamp.badge}
+                          </Badge>
+                        )}
+                      </div>
+                      <div className="text-xs text-gray-500">
+                        프로젝트 {bootcamp.projects.toLocaleString()}개
+                      </div>
+                    </div>
+                    <Button variant="ghost" size="sm" className="text-blue-600">
+                      프로젝트 보기 →
+                    </Button>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Right Column - Popular Projects */}
+          <div className="lg:col-span-2">
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-lg flex items-center">
+                  <Star className="w-5 h-5 mr-2 text-blue-600" />
+                  많이 즐겨찾는 프로젝트
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-0">
+                {popularProjects.map((project, index) => (
+                  <div key={index} className="p-4 border-b last:border-b-0 hover:bg-gray-50 cursor-pointer">
+                    <div className="flex items-start justify-between mb-2">
+                      <h3 className="font-medium text-sm flex items-center">
+                        {project.title}
+                        {project.isNew && (
+                          <Badge variant="outline" className="ml-2 text-xs text-green-600 border-green-600">
+                            NEW
+                          </Badge>
+                        )}
+                      </h3>
+                      <Star className="w-4 h-4 text-gray-400 hover:text-yellow-500 cursor-pointer" />
+                    </div>
+                    <div className="text-xs text-gray-600 mb-2">
+                      {project.author} · {project.bootcamp} · {project.period}
+                    </div>
+                    <div className="flex flex-wrap gap-1">
+                      {project.techStack.map((tech, techIndex) => (
+                        <Badge key={techIndex} variant="secondary" className="text-xs">
+                          {tech}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+                <div className="p-4 text-center">
+                  <Button variant="ghost" className="text-blue-600">
+                    더 많은 프로젝트 보기 →
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        {/* Statistics Section */}
+        <section className="mt-16 py-12 bg-white rounded-lg">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">DevArchive와 함께하는 성장</h2>
+            <p className="text-gray-600">개발자들의 학습과 성장을 돕는 플랫폼</p>
+          </div>
+          
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             <div className="text-center">
-              <div className="text-3xl font-bold text-blue-600 mb-2">1,247</div>
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <BookOpen className="w-8 h-8 text-blue-600" />
+              </div>
+              <div className="text-3xl font-bold text-gray-900 mb-2">2,847</div>
               <div className="text-gray-600">등록된 프로젝트</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-green-600 mb-2">24</div>
-              <div className="text-gray-600">참여 기관</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-purple-600 mb-2">3,892</div>
-              <div className="text-gray-600">활성 개발자</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 주요 기능 소개 */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">왜 DevArchive인가요?</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              단순한 프로젝트 목록이 아닌, 개발자들의 성장 스토리를 담은 아카이브입니다.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card className="text-center p-6 border-0 shadow-lg hover:shadow-xl transition-shadow">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Search className="w-8 h-8 text-blue-600" />
-              </div>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-xl text-gray-900">탐색가를 위한</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">
-                  부트캠프별 프로젝트 비교 분석으로 나에게 맞는 교육 기관을 찾아보세요.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center p-6 border-0 shadow-lg hover:shadow-xl transition-shadow">
               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Users className="w-8 h-8 text-green-600" />
               </div>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-xl text-gray-900">포트폴리오 빌더를 위한</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">
-                  팀 프로젝트에서의 개인 기여도와 활동을 효과적으로 어필하세요.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center p-6 border-0 shadow-lg hover:shadow-xl transition-shadow">
+              <div className="text-3xl font-bold text-gray-900 mb-2">1,203</div>
+              <div className="text-gray-600">활발한 개발자</div>
+            </div>
+            <div className="text-center">
               <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <BookOpen className="w-8 h-8 text-purple-600" />
+                <TrendingUp className="w-8 h-8 text-purple-600" />
               </div>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-xl text-gray-900">학습자를 위한</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">
-                  다른 개발자들의 프로젝트에서 새로운 기술과 해결책을 발견하세요.
-                </p>
-              </CardContent>
-            </Card>
+              <div className="text-3xl font-bold text-gray-900 mb-2">47</div>
+              <div className="text-gray-600">연결된 부트캠프</div>
+            </div>
           </div>
-        </div>
-      </section>
-
-      {/* 최근 프로젝트 */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex justify-between items-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-900">최근 프로젝트</h2>
-            <Link to="/explore">
-              <Button variant="outline">
-                모든 프로젝트 보기
-                <TrendingUp className="w-4 h-4 ml-2" />
-              </Button>
-            </Link>
-          </div>
-          <RecentProjects />
-        </div>
-      </section>
-
-      {/* 부트캠프 랭킹 */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex justify-between items-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-900">인기 부트캠프</h2>
-            <Button variant="outline">
-              전체 순위 보기
-              <Star className="w-4 h-4 ml-2" />
-            </Button>
-          </div>
-          <BootcampRanking />
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-600 to-indigo-700">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">
-            지금 바로 시작해보세요
-          </h2>
-          <p className="text-xl text-blue-100 mb-8">
-            1분 만에 프로젝트를 등록하고, 개발자 커뮤니티와 연결되세요.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/project/register">
-              <Button size="lg" variant="secondary" className="px-8 py-3 text-lg font-medium">
-                <Upload className="w-5 h-5 mr-2" />
-                프로젝트 등록하기
-              </Button>
-            </Link>
-            <Link to="/explore">
-              <Button size="lg" variant="outline" className="px-8 py-3 text-lg font-medium border-white text-white hover:bg-white/10">
-                <Search className="w-5 h-5 mr-2" />
-                프로젝트 둘러보기
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="col-span-1 md:col-span-2">
-              <div className="flex items-center space-x-2 mb-4">
-                <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-lg flex items-center justify-center">
-                  <BookOpen className="w-5 h-5 text-white" />
-                </div>
-                <span className="text-xl font-bold">DevArchive</span>
-              </div>
-              <p className="text-gray-400 mb-4">
-                개발자들의 프로젝트 아카이브. 
-                <br />함께 성장하는 개발자 커뮤니티를 만들어갑니다.
-              </p>
+      <footer className="bg-gray-900 text-white py-8 px-4 sm:px-6 lg:px-8 mt-16">
+        <div className="max-w-7xl mx-auto text-center">
+          <div className="flex items-center justify-center space-x-2 mb-4">
+            <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-lg flex items-center justify-center">
+              <BookOpen className="w-5 h-5 text-white" />
             </div>
-            
-            <div>
-              <h3 className="font-semibold mb-4">탐색</h3>
-              <ul className="space-y-2 text-gray-400">
-                <li><Link to="/explore" className="hover:text-white">프로젝트 탐색</Link></li>
-                <li><Link to="/bootcamp/ssafy" className="hover:text-white">부트캠프</Link></li>
-                <li><a href="#" className="hover:text-white">인기 프로젝트</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h3 className="font-semibold mb-4">커뮤니티</h3>
-              <ul className="space-y-2 text-gray-400">
-                <li><Link to="/project/register" className="hover:text-white">프로젝트 등록</Link></li>
-                <li><a href="#" className="hover:text-white">개발자 가이드</a></li>
-                <li><a href="#" className="hover:text-white">FAQ</a></li>
-              </ul>
-            </div>
+            <span className="text-xl font-bold">DevArchive</span>
           </div>
-          
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 DevArchive. All rights reserved.</p>
-          </div>
+          <p className="text-gray-400">
+            © 2024 DevArchive. 부트캠프 수료생들의 성장을 응원합니다.
+          </p>
         </div>
       </footer>
     </div>
