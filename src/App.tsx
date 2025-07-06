@@ -7,6 +7,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import ProjectExplore from "./pages/ProjectExplore";
 import ProjectDetail from "./pages/ProjectDetail";
+import ProjectRegister from "./pages/ProjectRegister";
+import ProjectManage from "./pages/ProjectManage";
 import BootcampDetail from "./pages/BootcampDetail";
 import NotFound from "./pages/NotFound";
 
@@ -21,7 +23,9 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/explore" element={<ProjectExplore />} />
+          <Route path="/project/register" element={<ProjectRegister />} />
           <Route path="/project/:id" element={<ProjectDetail />} />
+          <Route path="/project/:id/manage" element={<ProjectManage />} />
           <Route path="/bootcamp/:id" element={<BootcampDetail />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
