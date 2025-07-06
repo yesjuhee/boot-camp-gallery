@@ -1,8 +1,16 @@
 
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Search, BookOpen, LogIn, UserPlus } from 'lucide-react';
+import { Search, BookOpen, LogIn, UserPlus, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from '@/components/ui/navigation-menu';
 
 const Navigation = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -16,6 +24,15 @@ const Navigation = () => {
       navigate('/explore');
     }
   };
+
+  const bootcamps = [
+    { id: 'ssafy', name: 'SSAFY' },
+    { id: 'woowacourse', name: '우아한테크코스' },
+    { id: 'codestates', name: '코드스테이츠' },
+    { id: 'elice', name: '엘리스' },
+    { id: 'spartacodingclub', name: '스파르타코딩클럽' },
+    { id: 'fastcampus', name: '패스트캠퍼스' },
+  ];
 
   return (
     <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200">
@@ -34,12 +51,29 @@ const Navigation = () => {
             <Link to="/explore" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
               프로젝트 탐색
             </Link>
-            <a href="/bootcamps" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
-              부트캠프
-            </a>
-            <a href="/trending" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
-              인기 프로젝트
-            </a>
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="text-gray-700 hover:text-blue-600 font-medium transition-colors bg-transparent">
+                    부트캠프 탐색
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <div className="grid w-[400px] gap-2 p-4">
+                      {bootcamps.map((bootcamp) => (
+                        <NavigationMenuLink key={bootcamp.id} asChild>
+                          <Link
+                            to={`/bootcamp/${bootcamp.id}`}
+                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                          >
+                            <div className="text-sm font-medium leading-none">{bootcamp.name}</div>
+                          </Link>
+                        </NavigationMenuLink>
+                      ))}
+                    </div>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
           </div>
 
           {/* Search Bar */}
