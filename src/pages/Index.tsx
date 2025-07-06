@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Navigation from '@/components/Navigation';
 import ProjectCard from '@/components/ProjectCard';
 import BootcampRanking from '@/components/BootcampRanking';
@@ -77,9 +78,11 @@ const Index = () => {
             당신의 포트폴리오도 여기서 빛을 발할 수 있습니다.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors">
-              프로젝트 둘러보기
-            </button>
+            <Link to="/explore">
+              <button className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors">
+                프로젝트 둘러보기
+              </button>
+            </Link>
             <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors">
               내 프로젝트 등록하기
             </button>
@@ -95,9 +98,9 @@ const Index = () => {
               <TrendingUp className="w-6 h-6 text-blue-600" />
               <h2 className="text-2xl font-bold text-gray-900">이번 주 인기 프로젝트</h2>
             </div>
-            <button className="text-blue-600 hover:text-blue-700 font-medium">
+            <Link to="/explore?sort=popular" className="text-blue-600 hover:text-blue-700 font-medium">
               전체 보기 →
-            </button>
+            </Link>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
